@@ -37,11 +37,11 @@ app.get("/api/whoami", function(req, res) {
     console.log(req.headers['user-agent'])
     console.log(req.socket['remoteAddress'])
     console.log(ip)
-    res.json.stringify({
+    res.json(JSON.parse({
         ipaddress: ip,
         language: req.headers['accept-language'],
         software: req.headers['user-agent']
-    });
+    }));
 });
 
 // listen for requests :)
