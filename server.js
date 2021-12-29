@@ -29,7 +29,19 @@ app.get("/api/hello", function(req, res) {
 
 app.get("/api/whoami", function(req, res) {
     //console.log(JSON.stringify(req.headers))
-    res.json(JSON.stringify(req.headers));
+    const ip = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() ||
+        req.socket.remoteAddress
+
+    console.log(req.headers.host)
+    console.log(req.headers['accept-language'])
+    console.log(req.headers['user-agent'])
+    console.log(req.socket['remoteAddress'])
+    console.log(ip)
+    res.json(JSON.stringify({
+        ipaddress: ip,
+        language: req.headers['accept-language'],
+        software: req.headers['user-agent']
+    }));
 });
 
 // listen for requests :)
